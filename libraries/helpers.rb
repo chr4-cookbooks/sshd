@@ -21,12 +21,12 @@
 module Sshd
   module Helpers
 
-    def generate_sshd_config
+    def generate_sshd_config(config)
       sshd_config = ''
       conditional_blocks = ''
 
       # generate the configuration file
-      node['sshd']['sshd_config'].each do |key, value|
+      config.each do |key, value|
 
         # hashes are conditional blocks
         # which have to be placed at the end of the file
@@ -48,6 +48,13 @@ module Sshd
 
       # append conditional blocks
       sshd_config << conditional_blocks
+    end
+
+    # merge d (defaults) with new hash (n)
+    def merge_settings(d, n)
+      r = d.to_hash
+      n.each { |k, v| r[k.to_s] = v }
+      r
     end
 
   end

@@ -81,7 +81,3 @@ when 'redhat', 'centos', 'fedora', 'scientific'
   default['sshd']['sshd_config']['SyslogFacility'] = 'AUTHPRIV'
   default['sshd']['sshd_config']['GSSAPIAuthentication'] = 'yes'
 end
-
-
-# by default, create iptables rule
-default['sshd']['configure_iptables'] = true

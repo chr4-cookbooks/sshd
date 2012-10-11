@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sshd
-# Recipe:: default
+# Recipe:: iptables
 #
 # Copyright 2012, Chris Aumann
 #
@@ -18,6 +18,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-include_recipe 'sshd::install'
+# iptables firewall rules
+allow_ssh = []
+Array(node['sshd']['sshd_config']['Port']).each do |port|
+  allow_ssh << "--protocol tcp --dport #{port} --match state --state NEW --jump ACCEPT"
+end
 
-openssh_server node['sshd']['config_file']
+iptables_rule 'ssh' do
+  rule allow_ssh
+end

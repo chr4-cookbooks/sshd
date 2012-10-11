@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sshd
-# Recipe:: default
+# Recipe:: install
 #
 # Copyright 2012, Chris Aumann
 #
@@ -18,6 +18,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-include_recipe 'sshd::install'
+package node['sshd']['package']
 
-openssh_server node['sshd']['config_file']
+directory File.dirname(node['sshd']['config_file']) do
+  owner  'root'
+  group  'root'
+  mode   '0755'
+end
+
+service node['sshd']['service_name'] do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end
