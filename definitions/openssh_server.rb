@@ -24,7 +24,7 @@ end
 
 
 define :openssh_server, :action => :create, :cookbook => 'sshd', :source => 'sshd_config.erb' do
-  # remove attributes that are not chrony configuration
+  # remove attributes that are not sshd configuration
   filename = params.delete(:name)
   action = params.delete(:action)
   cookbook = params.delete(:cookbook)
@@ -37,7 +37,7 @@ define :openssh_server, :action => :create, :cookbook => 'sshd', :source => 'ssh
   settings = merge_settings(node['sshd']['sshd_config'], params)
   sshd_config = generate_sshd_config(settings)
 
-  template node['sshd']['config_file'] do
+  template filename do
     owner     'root'
     group     'root'
     mode      '0644'
