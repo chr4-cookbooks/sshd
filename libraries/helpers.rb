@@ -26,12 +26,15 @@ module Sshd
       conditional_blocks = ''
 
       # generate the configuration file
-      config.each do |key, value|
+      # sort the hash, so chef doesn't restart if nothing changed but the order
+      config.sort.each do |e|
+        key, value = e[0], e[1]
 
         # hashes are conditional blocks
         # which have to be placed at the end of the file
         if value.is_a? Hash
-          value.each do |k, v|
+          value.sort.each do |se|
+            k, v = se[0], se[1]
             conditional_blocks << "#{key} #{k}\n"
             Array(v).each { |x, y| conditional_blocks << "    #{x} #{y}\n" }
           end
