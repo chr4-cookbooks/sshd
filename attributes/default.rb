@@ -27,8 +27,8 @@ else
 end
 
 # path to 'sshd_config' configuration file
-default['sshd']['config_file'] = case platform
-when 'mac_os_x', 'mac_os_x_server'
+default['sshd']['config_file'] = case platform_family
+when 'mac_os_x'
   '/etc/sshd_config'
 else
   '/etc/ssh/sshd_config'
@@ -36,8 +36,8 @@ end
 
 
 # sshd service name
-default['sshd']['service_name'] = case platform
-when 'debian', 'ubuntu'
+default['sshd']['service_name'] = case platform_family
+when 'debian'
   'ssh'
 else
   'sshd'
@@ -62,22 +62,22 @@ default['sshd']['sshd_config'] = {
 
 
 # initialize sftp subsystem
-default['sshd']['sshd_config']['Subsystem'] = case platform
-when 'debian', 'ubuntu'
+default['sshd']['sshd_config']['Subsystem'] = case platform_family
+when 'debian'
   'sftp /usr/lib/openssh/sftp-server'
-when 'redhat', 'centos', 'fedora', 'scientific'
+when 'rhel', 'fedora'
   'sftp /usr/libexec/openssh/sftp-server'
-when 'mac_os_x', 'mac_os_x_server'
+when 'mac_os_x'
   'sftp /usr/libexec/sftp-server'
 end
 
 
-case platform
-when 'debian', 'ubuntu'
+case platform_family
+when 'debian'
   # on debian-like systems, pam takes care of the motd
   default['sshd']['sshd_config']['PrintMotd'] = 'no'
 
-when 'redhat', 'centos', 'fedora', 'scientific'
+when 'rhel', 'fedora'
   default['sshd']['sshd_config']['SyslogFacility'] = 'AUTHPRIV'
   default['sshd']['sshd_config']['GSSAPIAuthentication'] = 'yes'
 end
