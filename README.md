@@ -80,12 +80,6 @@ Conditional blocks are defined using hashes, see the "Match" examples above.
 
 Just installs openssh-server without configuring it, as well as enabling and starting the daemon.
 
-
-## iptables
-
-Adds an iptables rule (using the iptables cookbook) to allow ssh access from everywhere, for each port configured in your config file
-
-
 # Definitions
 
 You can maintain openssh-server using definitions from your other cookbooks.
