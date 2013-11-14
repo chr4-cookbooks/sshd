@@ -26,9 +26,9 @@ end
 define :openssh_server, :action => :create, :cookbook => 'sshd', :source => 'sshd_config.erb' do
   # remove attributes that are not sshd configuration
   filename = params.delete(:name)
-  action = params.delete(:action)
+  action   = params.delete(:action)
   cookbook = params.delete(:cookbook)
-  source = params.delete(:source)
+  source   = params.delete(:source)
 
   include_recipe 'sshd::install'
 
