@@ -20,7 +20,6 @@
 
 module Sshd
   module Helpers
-
     def generate_sshd_config(config)
       sshd_config = ''
       conditional_blocks = ''
@@ -59,6 +58,5 @@ module Sshd
       n.each { |k, v| r[k.to_s] = v }
       r
     end
-
   end
 end
