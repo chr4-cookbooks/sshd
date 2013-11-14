@@ -2,125 +2,161 @@
 
 This cookbook maintains the openssh server.
 
+Unlike other sshd cookbooks, this cookbook respects the default settings of the
+current operating systems, unless these settings are explicitly overwritten.
 
-# Attributes
+This cookbook takes (or at least tries to) the default sshd configruation of the
+distribution you are using as a default. Then you can overwrite specific
+settings.
+
+See below for the default settings.
+
+
+## Attributes
 
 You can specify the package that installs sshd, using the following attribute.
-There's useful defaults for most linux distributions.
+There's  defaults for most linux distributions.
 
-    node['sshd']['package'] = 'openssh-server'
+```ruby
+node['sshd']['package']      # package to install openssh-server
+```
 
 The following settings will be filled in using the defaults of the distribution you're using, unless you overwrite it in your node configuration / definition
 
-    default['sshd']['config_file'] = '/etc/sshd/sshd_config'
-    default['sshd']['service_name'] = 'sshd'
+```ruby
+node['sshd']['config_file']  # path to sshd_config
+node['sshd']['service_name'] # sshd service name
+```
+
+You can specify every configuration option that openssh-server supports in the
+`sshd_config` attribute. The settings you specify will be merged with the
+distributions default settings.
+
+```ruby
+node['sshd']['sshd_config']['Port'] = 22
+```
+
+Conditional blocks are defined using hashes
+
+```ruby
+node['sshd']['sshd_config']['Match']['User fred']['X11Forwarding'] = 'no'
+node['sshd']['sshd_config']['Match'] = {
+  'User john' => {
+    'ChrootDirectory' => '/srv',
+    'ForceCommand' => 'internal-sftp',
+    'AllowTcpForwarding' => 'no',
+    'X11Forwarding' => 'no'
+  }
+}
+```
+
+Some configuration options can be specified multiple times. You can reflect this
+using an array
+
+```ruby
+node['sshd']['sshd_config']['HostKey'] = %w{key1 key2}
+```
 
 
-This recipe takes (or tries to) the default sshd_configuration of your distribution as a base, you can then overwrite specific settings. These are the default settings used
+## Recipes
 
-    Port 22
-    Protocol 2
-    AcceptEnv LANG LC_*
-    HostKey /etc/ssh/ssh_host_dsa_key
-    HostKey /etc/ssh/ssh_host_ecdsa_key
-    HostKey /etc/ssh/ssh_host_rsa_key
-    PasswordAuthentication yes
-    ChallengeResponseAuthentication no
-    X11Forwarding yes
-    UsePAM yes
+### default
 
-plus, on debian/ubuntu machines
+Runs the install recipe, then configures openssh-server according to the node attributes.
 
-    SyslogFacility AUTH
-    GSSAPIAuthentication no
-    Subsystem sftp /usr/lib/openssh/sftp-server
-
-and on centos/compatible machines
-
-    SyslogFacility AUTHPRIV
-    GSSAPIAuthentication yes
-    Subsystem sftp /usr/libexec/openssh/sftp-server
-
-
-# Recipes
-
-## default
-
-Runs the install recipe, then configures openssh-server according to the attributes given in the node/role.
-You can configure openssh-server in your the attributes like this:
-
-    "default_attributes": {
-      "sshd": {
-        "sshd_config": {
-          "Port": 1234,
-          "X11Forward": yes,
-          "HostKey": [
-            "/etc/ssh/ssh_host_dsa_key",
-            "/etc/ssh/ssh_host_ecdsa_key",
-            "/etc/ssh/ssh_host_rsa_key"
-          ],
-          "Match": {
-            "User fred": { "X11Forwarding": "no" },
-            "User john": {
-              "ChrootDirectory": "/srv",
-              "ForceCommand": "internal-sftp",
-              "AllowTcpForwarding": "no",
-              "X11Forwarding": "no"
-          }
-        }
-      }
-    }
-
-Some entries can be specified multiple times, if you need this, specify them as arrays (as seen in the example above, e.g. "HostKey": [ "key1", "key2"] ).
-
-Conditional blocks are defined using hashes, see the "Match" examples above.
-
-
-## install
+### install
 
 Just installs openssh-server without configuring it, as well as enabling and starting the daemon.
 
-# Definitions
 
-You can maintain openssh-server using definitions from your other cookbooks.
-To use them, make sure your metadata.rb includes
+## Definitions
 
-    depends 'sshd'
+You can also maintain openssh-server using the definition. This is the
+recommended way.
 
+To use the definition, make sure your metadata.rb includes
 
-## openssh_server
+```ruby
+depends 'sshd'
+```
+
+### openssh_server
 
 To install and configure openssh-server from other recipes, use the following definition:
 
-    openssh_server node['sshd']['config_file']
+```ruby
+openssh_server node['sshd']['config_file']
+```
 
 or, if you need a configuration which differs from the default
 
-    openssh_server '/etc/sshd_config' do
-      Port 1234
-      X11Forward 'no'
-    end
+```ruby
+openssh_server '/etc/sshd_config' do
+  Port 1234
+  X11Forward 'no'
+end
+```
 
-The definition accepts all parameters possible according to the sshd_config manpage.
-If you want to specify an item multiple times, use an array.
-For using conditional blocks, you have to specify them in an additional hash.
+The definition accepts all configuration options sshd_config supports.
 
-    openssh_server node['sshd']['config_file'] do
-      Port        1234
-      X11Forward  'yes'
-      HostKey     [ '/etc/ssh/ssh_host_dsa_key', '/etc/ssh/ssh_host_rsa_key' ]
-      Match       'User fred' => { 'X11Forwarding' => 'no' },
-                  'User john' => {
-                    'ChrootDirectory' => '/srv',
-                    'ForceCommand' => 'internal-sftp',
-                    'AllowTcpForwarding' => 'no',
-                    'X11Forwarding' => 'no'
-                  }
-    end
+```ruby
+openssh_server node['sshd']['config_file'] do
+  Port        1234
+  X11Forward  'yes'
 
-It's also possible to specify a cookbook and a source to use instead of the default ones, too:
+  # To specify an option multiple times, use an array
+  HostKey     %w{/etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key}
 
-    openssh_server node['sshd']['config_file'] do
-      cookbook 'mycookbook'
-      source   'mytemplate.erb'
-    end
+  # For conditional blocks, use a hash
+  Match       'User fred' => { 'X11Forwarding' => 'no' },
+              'User john' => {
+                'ChrootDirectory' => '/srv',
+                'ForceCommand' => 'internal-sftp',
+                'AllowTcpForwarding' => 'no',
+                'X11Forwarding' => 'no'
+              }
+end
+```
+
+In case you need it, you can also use a custom template to use for `sshd_config`
+
+```ruby
+openssh_server node['sshd']['config_file'] do
+  cookbook 'mycookbook'
+  source   'mytemplate.erb'
+end
+```
+
+
+## Default sshd_config settings
+
+The following options are set by default
+
+```
+Port 22
+Protocol 2
+AcceptEnv LANG LC_*
+HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_rsa_key
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+X11Forwarding yes
+UsePAM yes
+```
+
+Plus, on debian/ubuntu machines
+
+```
+SyslogFacility AUTH
+GSSAPIAuthentication no
+Subsystem sftp /usr/lib/openssh/sftp-server
+```
+
+And on centos/compatible machines
+
+```
+SyslogFacility AUTHPRIV
+GSSAPIAuthentication yes
+Subsystem sftp /usr/libexec/openssh/sftp-server
+```
