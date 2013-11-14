@@ -30,8 +30,6 @@ define :openssh_server, :action => :create, :cookbook => 'sshd', :source => 'ssh
   cookbook = params.delete(:cookbook)
   source   = params.delete(:source)
 
-  include_recipe 'sshd::install'
-
   # generate sshd_config according to attributes
   # use default values, overwrite them with the ones in the definition
   settings = merge_settings(node['sshd']['sshd_config'], params)
