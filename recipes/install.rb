@@ -27,6 +27,6 @@ directory File.dirname(node['sshd']['config_file']) do
 end
 
 service node['sshd']['service_name'] do
-  supports :status => true, :restart => true, :reload => true
+  supports status: true, restart: true, reload: true
   action [ :enable, :start ]
 end

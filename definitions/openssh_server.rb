@@ -22,8 +22,7 @@ class Chef::Recipe
   include Sshd::Helpers
 end
 
-
-define :openssh_server, :action => :create, :cookbook => 'sshd', :source => 'sshd_config.erb' do
+define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.erb' do
   # remove attributes that are not sshd configuration
   filename = params.delete(:name)
   action   = params.delete(:action)
@@ -41,8 +40,8 @@ define :openssh_server, :action => :create, :cookbook => 'sshd', :source => 'ssh
     mode      '0644'
     cookbook  cookbook
     source    source
-    variables :config => sshd_config
-    notifies  :restart, resources(:service => node['sshd']['service_name'])
+    variables config: sshd_config
+    notifies  :restart, resources(service: node['sshd']['service_name'])
     action    action
   end
 end
