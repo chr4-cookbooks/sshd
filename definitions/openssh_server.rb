@@ -35,6 +35,9 @@ define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.
   sshd_config = generate_sshd_config(settings)
 
   service node['sshd']['service_name'] do
+    # Ubuntu-14.04 cannot restart ssh using the default command
+    restart_command "service #{node['sshd']['service_name']} restart" if node['platform'] == 'ubuntu'
+
     supports status: true, restart: true, reload: true
   end
 
