@@ -136,9 +136,10 @@ The following options are set by default
 Port 22
 Protocol 2
 AcceptEnv LANG LC_*
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_dsa_key
 HostKey /etc/ssh/ssh_host_ecdsa_key
-HostKey /etc/ssh/ssh_host_rsa_key
 PasswordAuthentication yes
 ChallengeResponseAuthentication no
 X11Forwarding yes
