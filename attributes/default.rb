@@ -86,4 +86,5 @@ when 'rhel', 'fedora'
 when 'mac_os_x'
   default['sshd']['sshd_config']['SyslogFacility'] = 'AUTHPRIV'
   default['sshd']['sshd_config']['UsePrivilegeSeparation'] = 'sandbox'
+  default['sshd']['sshd_config']['X11Forwarding'] = 'no'
 end
