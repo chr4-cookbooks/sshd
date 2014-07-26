@@ -82,4 +82,8 @@ when 'rhel', 'fedora'
   default['sshd']['sshd_config']['SyslogFacility'] = 'AUTHPRIV'
   default['sshd']['sshd_config']['GSSAPIAuthentication'] = 'yes'
   default['sshd']['sshd_config']['AcceptEnv'] = 'LANG LANGUAGE LC_* XMODIFIERS'
+
+when 'mac_os_x'
+  default['sshd']['sshd_config']['SyslogFacility'] = 'AUTHPRIV'
+  default['sshd']['sshd_config']['UsePrivilegeSeparation'] = 'sandbox'
 end
