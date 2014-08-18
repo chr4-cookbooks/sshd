@@ -80,7 +80,7 @@ To use the definition, make sure your metadata.rb includes
 depends 'sshd'
 ```
 
-### openssh_server
+### openssh\_server
 
 To install and configure openssh-server from other recipes, use the following definition:
 
@@ -97,7 +97,7 @@ openssh_server '/etc/sshd_config' do
 end
 ```
 
-The definition accepts all configuration options sshd_config supports.
+The definition accepts all configuration options `sshd_config` supports.
 
 ```ruby
 openssh_server node['sshd']['config_file'] do
@@ -128,7 +128,7 @@ end
 ```
 
 
-## Default sshd_config settings
+## Default sshd\_config settings
 
 The following options are set by default
 
@@ -161,3 +161,21 @@ SyslogFacility AUTHPRIV
 GSSAPIAuthentication yes
 Subsystem sftp /usr/libexec/openssh/sftp-server
 ```
+
+# Contributing
+
+You fixed a bug, or added a new feature? Yippie!
+
+1. Fork the repository on Github
+2. Create a named feature branch (like `add\_component\_x`)
+3. Write you change
+4. Write tests for your change (if applicable)
+5. Run the tests, ensuring they all pass
+6. Submit a Pull Request using Github
+
+Contributions of any sort are very welcome!
+
+# License and Authors
+
+Authors: Chris Aumann <me@chr4.org>
+Contributors: Jeremy Olliver <jeremy.olliver@gmail.com>
