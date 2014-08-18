@@ -27,6 +27,10 @@ directory File.dirname(node['sshd']['config_file']) do
 end
 
 service node['sshd']['service_name'] do
+  # Ubuntu-14.04 cannot restart ssh using the default command
+  start_command "service #{node['sshd']['service_name']} start" if node['platform'] == 'ubuntu'
+  restart_command "service #{node['sshd']['service_name']} restart" if node['platform'] == 'ubuntu'
+  stop_command "service #{node['sshd']['service_name']} stop" if node['platform'] == 'ubuntu'
   supports status: true, restart: true, reload: true
-  action [ :enable, :start ]
+  action [ :enable, :restart ]
 end
