@@ -23,7 +23,7 @@ package node['sshd']['package']
 directory File.dirname(node['sshd']['config_file']) do
   owner  'root'
   group  'root'
-  mode   '0755'
+  mode   00755
 end
 
 service node['sshd']['service_name'] do
