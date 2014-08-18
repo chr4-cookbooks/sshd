@@ -31,5 +31,5 @@ service node['sshd']['service_name'] do
   # This will probably be fixed in chef-client 11.14
   provider Chef::Provider::Service::Upstart if node.platform == 'ubuntu' && node.platform_version >= '13.10'
   supports status: true, restart: true, reload: true
-  action [ :enable, :start ]
+  action [:enable, :start]
 end

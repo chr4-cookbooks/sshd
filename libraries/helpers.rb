@@ -39,11 +39,11 @@ module Sshd
           end
 
         else
-          Array(value).each do |value|
+          Array(value).each do |v|
             # if HostKey is not present, don't set it
-            next unless File.exists?(value) if key == 'HostKey'
+            next unless File.exist?(v) if key == 'HostKey'
 
-            sshd_config << "#{key} #{value}\n"
+            sshd_config << "#{key} #{v}\n"
           end
         end
       end

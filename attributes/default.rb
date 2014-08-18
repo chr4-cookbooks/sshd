@@ -34,7 +34,6 @@ else
   '/etc/ssh/sshd_config'
 end
 
-
 # sshd service name
 default['sshd']['service_name'] = case platform_family
 when 'debian'
@@ -42,7 +41,6 @@ when 'debian'
 else
   'sshd'
 end
-
 
 # define sshd_config attributes
 default['sshd']['sshd_config'] = {
@@ -61,7 +59,6 @@ default['sshd']['sshd_config'] = {
   'GSSAPIAuthentication' => 'no'
 }
 
-
 # initialize sftp subsystem
 default['sshd']['sshd_config']['Subsystem'] = case platform_family
 when 'debian'
@@ -71,7 +68,6 @@ when 'rhel', 'fedora'
 when 'mac_os_x'
   'sftp /usr/libexec/sftp-server'
 end
-
 
 case platform_family
 when 'debian'
