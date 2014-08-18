@@ -24,13 +24,12 @@ module Sshd
       sshd_config = ''
       conditional_blocks = ''
 
-      # generate the configuration file
-      # sort the hash, so chef doesn't restart if nothing changed but the order
+      # Generate the configuration file.
+      # Sort the hash, so Chef doesn't restart if nothing changed but the order
       config.sort.each do |e|
         key, value = e[0], e[1]
 
-        # hashes are conditional blocks
-        # which have to be placed at the end of the file
+        # Hashes are conditional blocks, which have to be placed at the end of the file
         if value.is_a? Hash
           value.sort.each do |se|
             k, v = se[0], se[1]
@@ -40,7 +39,7 @@ module Sshd
 
         else
           Array(value).each do |v|
-            # if HostKey is not present, don't set it
+            # If HostKey is not present, don't set it
             next unless File.exist?(v) if key == 'HostKey'
 
             sshd_config << "#{key} #{v}\n"
@@ -48,11 +47,11 @@ module Sshd
         end
       end
 
-      # append conditional blocks
+      # Append conditional blocks
       sshd_config << conditional_blocks
     end
 
-    # merge d (defaults) with new hash (n)
+    # Merge d (defaults) with new hash (n)
     def merge_settings(d, n)
       r = d.to_hash
       n.each { |k, v| r[k.to_s] = v }

@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# the package to install
+# The package to install
 default['sshd']['package'] = case platform
 when 'archlinux'
   'openssh'
@@ -26,7 +26,7 @@ else
   'openssh-server'
 end
 
-# path to 'sshd_config' configuration file
+# Path to 'sshd_config' configuration file
 default['sshd']['config_file'] = case platform_family
 when 'mac_os_x'
   '/etc/sshd_config'
@@ -34,7 +34,7 @@ else
   '/etc/ssh/sshd_config'
 end
 
-# sshd service name
+# OpenSSH service name
 default['sshd']['service_name'] = case platform_family
 when 'debian'
   'ssh'
@@ -42,7 +42,7 @@ else
   'sshd'
 end
 
-# define sshd_config attributes
+# Define sshd_config attributes
 default['sshd']['sshd_config'] = {
   'Port' => 22,
   'Protocol' => 2,
@@ -59,7 +59,7 @@ default['sshd']['sshd_config'] = {
   'GSSAPIAuthentication' => 'no'
 }
 
-# initialize sftp subsystem
+# Initialize sftp subsystem
 default['sshd']['sshd_config']['Subsystem'] = case platform_family
 when 'debian'
   'sftp /usr/lib/openssh/sftp-server'
@@ -71,7 +71,7 @@ end
 
 case platform_family
 when 'debian'
-  # on debian-like systems, pam takes care of the motd
+  # On debian-like systems, pam takes care of the motd
   default['sshd']['sshd_config']['PrintMotd'] = 'no'
 
 when 'rhel', 'fedora'
