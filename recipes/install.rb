@@ -27,6 +27,7 @@ directory File.dirname(node['sshd']['config_file']) do
 end
 
 service node['sshd']['service_name'] do
+  provider Chef::Provider::Service::Upstart if node.platform == 'ubuntu' && node.platform_version >= '13.10'
   supports status: true, restart: true, reload: true
   action [ :enable, :start ]
 end
