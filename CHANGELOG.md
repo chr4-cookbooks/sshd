@@ -3,6 +3,12 @@ sshd CHANGELOG
 
 This file is used to list changes made in each version of the sshd cookbook.
 
+1.1.1
+-----
+
+- Fix default XMODIFIERS for RHEL
+- Add default attributes for OS X
+
 1.1.0
 -----
 
