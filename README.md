@@ -93,7 +93,7 @@ or, if you need a configuration which differs from the default
 ```ruby
 openssh_server '/etc/sshd_config' do
   Port 1234
-  X11Forward 'no'
+  X11Forwarding 'no'
 end
 ```
 
@@ -102,7 +102,7 @@ The definition accepts all configuration options `sshd_config` supports.
 ```ruby
 openssh_server node['sshd']['config_file'] do
   Port        1234
-  X11Forward  'yes'
+  X11Forwarding  'yes'
 
   # To specify an option multiple times, use an array
   HostKey     %w{/etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key}
