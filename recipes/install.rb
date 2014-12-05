@@ -22,7 +22,7 @@ package node['sshd']['package']
 
 directory File.dirname(node['sshd']['config_file']) do
   owner  'root'
-  group  'root'
+  group  node['root_group']
   mode   00755
 end
 
