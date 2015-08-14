@@ -23,25 +23,20 @@ class Chef::Recipe
 end
 
 define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.erb' do
-  # remove attributes that are not sshd configuration
-  filename = params.delete(:name)
-  action   = params.delete(:action)
-  cookbook = params.delete(:cookbook)
-  source   = params.delete(:source)
+  # Remove attributes that are not sshd configuration
+  filename        = params.delete(:name)
+  template_action = params.delete(:action)
+  cookbook        = params.delete(:cookbook)
+  source          = params.delete(:source)
 
   # generate sshd_config according to attributes
   # use default values, overwrite them with the ones in the definition
   settings = merge_settings(node['sshd']['sshd_config'], params)
   sshd_config = generate_sshd_config(settings)
 
-  template filename do
-    owner     'root'
-    group     node['root_group']
-    mode      00644
-    cookbook  cookbook
-    source    source
-    variables config: sshd_config
-    action    action
+  # Check sshd_config
+  execute "sshd -t #{filename}" do
+    action :nothing
   end
 
   service node['sshd']['service_name'] do
@@ -50,6 +45,20 @@ define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.
     provider Chef::Provider::Service::Upstart if node['platform'] == 'ubuntu' && node['platform_version'] >= '13.10'
 
     supports status: true, restart: true, reload: true
-    subscribes :restart, "template[#{filename}]"
+    action :nothing
+  end
+
+  template filename do
+    owner     'root'
+    group     node['root_group']
+    mode      00644
+    cookbook  cookbook
+    source    source
+    variables config: sshd_config
+    action    template_action
+
+    # Test sshd_config before actually restarting
+    notifies :run, "execute[sshd -t #{filename}]", :immediately
+    notifies :restart, "service[#{node['sshd']['service_name']}]", :delayed
   end
 end
