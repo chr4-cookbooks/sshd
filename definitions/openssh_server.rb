@@ -46,8 +46,9 @@ define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.
 
   service node['sshd']['service_name'] do
     # Due to a bug in Chef, we need to manually set the provider to Upstart for Ubuntu 13.10 and 14.04
-    # This will probably be fixed in chef-client 11.14
+    # TODO: This will probably be fixed in chef-client 11.14
     provider Chef::Provider::Service::Upstart if node['platform'] == 'ubuntu' && node['platform_version'] >= '13.10'
+
     supports status: true, restart: true, reload: true
     subscribes :restart, "template[#{filename}]"
   end
