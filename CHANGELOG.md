@@ -3,6 +3,11 @@ sshd CHANGELOG
 
 This file is used to list changes made in each version of the sshd cookbook.
 
+1.1.2
+-----
+
+- Check `sshd_config` before restarting sshd service
+
 1.1.1
 -----
 
