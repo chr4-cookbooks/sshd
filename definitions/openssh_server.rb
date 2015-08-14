@@ -35,7 +35,8 @@ define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.
   sshd_config = generate_sshd_config(settings)
 
   # Check sshd_config
-  execute "sshd -t #{filename}" do
+  execute 'check_sshd_config' do
+    command "sshd -t -f #{filename}"
     action :nothing
   end
 
@@ -58,7 +59,7 @@ define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.
     action    template_action
 
     # Test sshd_config before actually restarting
-    notifies :run, "execute[sshd -t #{filename}]", :immediately
+    notifies :run, 'execute[check_sshd_config]', :immediately
     notifies :restart, "service[#{node['sshd']['service_name']}]", :delayed
   end
 end
