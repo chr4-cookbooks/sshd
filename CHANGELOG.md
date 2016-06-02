@@ -3,6 +3,11 @@ sshd CHANGELOG
 
 This file is used to list changes made in each version of the sshd cookbook.
 
+1.2.0
+-----
+
+- Remove workaround for chef-client < 11.14, as it breaks Ubuntu Xenial 16.04 LTS
+
 1.1.3
 -----
 
