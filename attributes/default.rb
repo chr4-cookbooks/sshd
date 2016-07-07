@@ -19,7 +19,7 @@
 #
 
 # The package to install
-default['sshd']['package'] = case platform
+default['sshd']['package'] = case node['platform']
 when 'archlinux'
   'openssh'
 else
@@ -27,7 +27,7 @@ else
 end
 
 # Path to 'sshd_config' configuration file
-default['sshd']['config_file'] = case platform_family
+default['sshd']['config_file'] = case node['platform_family']
 when 'mac_os_x'
   '/etc/sshd_config'
 else
@@ -35,7 +35,7 @@ else
 end
 
 # OpenSSH service name
-default['sshd']['service_name'] = case platform_family
+default['sshd']['service_name'] = case node['platform_family']
 when 'debian'
   'ssh'
 else
@@ -60,7 +60,7 @@ default['sshd']['sshd_config'] = {
 }
 
 # Initialize sftp subsystem
-default['sshd']['sshd_config']['Subsystem'] = case platform_family
+default['sshd']['sshd_config']['Subsystem'] = case node['platform_family']
 when 'debian'
   'sftp /usr/lib/openssh/sftp-server'
 when 'rhel', 'fedora'
@@ -69,7 +69,7 @@ when 'mac_os_x'
   'sftp /usr/libexec/sftp-server'
 end
 
-case platform_family
+case node['platform_family']
 when 'debian'
   # On debian-like systems, pam takes care of the motd
   default['sshd']['sshd_config']['PrintMotd'] = 'no'
