@@ -3,6 +3,11 @@ sshd CHANGELOG
 
 This file is used to list changes made in each version of the sshd cookbook.
 
+1.2.1
+-----
+
+- Use attribute bracket syntax (required for Chef 13)
+
 1.2.0
 -----
 
