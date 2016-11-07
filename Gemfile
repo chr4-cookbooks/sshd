@@ -16,3 +16,6 @@ end
 group :kitchen_vagrant do
   gem 'kitchen-vagrant', '~> 0.11'
 end
+
+gem 'rspec'
+gem 'chefspec'

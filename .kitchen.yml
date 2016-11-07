@@ -23,6 +23,7 @@ suites:
     sshd:
       sshd_config:
         Port: 1234
+        ListenAddress: 0.0.0.0
 
 - name: conditional_block
   run_list:
