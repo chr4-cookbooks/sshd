@@ -28,7 +28,7 @@ describe 'sshd::default' do
     context 'when Port and ListenAddress are defined' do
       before do
         chef_run.node.normal['sshd']['sshd_config'] = {
-          'Port' => 2222,
+          'Port' => [2222,22],
           'ListenAddress' => '0.0.0.0'
           }
         chef_run.converge(described_recipe)

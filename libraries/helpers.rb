@@ -26,7 +26,11 @@ module Sshd
 
       # Some distros (ubuntu at least) require that the Port be declared before the ListenAddress
       # see issue #8 (https://github.com/chr4-cookbooks/sshd/issues/8)
-      sshd_config << "Port #{config.delete('Port')}\n" if config['Port']
+      #
+      # The 'Port' option can be specified multiple times to listen to multiple ports.
+      Array(config.delete('Port')).each do |port|
+        sshd_config << "Port #{port}"
+      end
 
       # Generate the configuration file.
       # Sort the hash, so Chef doesn't restart if nothing changed but the order
