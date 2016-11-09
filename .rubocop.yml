@@ -16,5 +16,5 @@ Documentation:
 ClassAndModuleChildren:
   Enabled: false
 
-SingleSpaceBeforeFirstArg:
+SpaceBeforeFirstArg:
   Enabled: false

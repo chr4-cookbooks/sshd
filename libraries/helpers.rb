@@ -29,7 +29,7 @@ module Sshd
       #
       # The 'Port' option can be specified multiple times to listen to multiple ports.
       Array(config.delete('Port')).each do |port|
-        sshd_config << "Port #{port}"
+        sshd_config << "Port #{port}\n"
       end
 
       # Generate the configuration file.
