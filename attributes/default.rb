@@ -26,6 +26,14 @@ else
   'openssh-server'
 end
 
+# Path to 'sshd' executable
+default['sshd']['sshd_path'] = case node['platform']
+when 'redhat', 'centos'
+  node['platform_version'].to_i >= 7 ? '/sbin/sshd' : '/usr/sbin/sshd'
+else
+  '/usr/sbin/sshd'
+end
+
 # Path to 'sshd_config' configuration file
 default['sshd']['config_file'] = case node['platform_family']
 when 'mac_os_x'

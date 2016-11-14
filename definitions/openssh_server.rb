@@ -36,7 +36,7 @@ define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.
 
   # Check sshd_config
   execute 'check_sshd_config' do
-    command "sshd -t -f #{filename}"
+    command "#{node['sshd']['sshd_path']} -t -f #{filename}"
     action :nothing
   end
 
