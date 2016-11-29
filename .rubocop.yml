@@ -21,3 +21,7 @@ SpaceBeforeFirstArg:
 
 AbcSize:
   Enabled: false
+
+# In the case of libraries/helpers.rb, parallel assignment just looks so much nicer
+ParallelAssignment:
+  Enabled: false
