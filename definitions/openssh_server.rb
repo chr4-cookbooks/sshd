@@ -48,7 +48,7 @@ define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.
   template filename do
     owner     'root'
     group     node['root_group']
-    mode      00644
+    mode      0o644
     cookbook  cookbook
     source    source
     variables config: sshd_config
