@@ -24,9 +24,6 @@ module Sshd
       sshd_config = ''
       conditional_blocks = ''
 
-      # Some distros (ubuntu at least) require that the Port be declared before the ListenAddress
-      # see issue #8 (https://github.com/chr4-cookbooks/sshd/issues/8)
-      #
       # It's necessary to specify the Port option before the ListenAddress. The relevant section from the sshd_config manpage:
       #   If port is not specified, sshd will listen on the address and all prior Port options specified. The default is to listen on all local
       #   addresses. Multiple ListenAddress options are permitted. Additionally, any Port options must precede this option for non-port qualified
