@@ -48,7 +48,7 @@ module Sshd
         else
           Array(value).each do |v|
             # If HostKey is not present, don't set it
-            next unless File.exist?(v) if key == 'HostKey'
+            next if key == 'HostKey' && File.exist?(v) == false
 
             sshd_config << "#{key} #{v}\n"
           end
