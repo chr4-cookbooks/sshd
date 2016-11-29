@@ -5,3 +5,5 @@ license          'GNU Public License 3.0'
 description      'Installs/Configures sshd'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '1.2.1'
+source_url       'https://github.com/chr4-cookbooks/sshd' if respond_to?(:source_url)
+issues_url       'https://github.com/chr4-cookbooks/sshd/issues' if respond_to?(:issues_url)
