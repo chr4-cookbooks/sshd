@@ -19,36 +19,40 @@
 #
 
 # The package to install
-default['sshd']['package'] = case node['platform']
-when 'archlinux'
-  'openssh'
-else
-  'openssh-server'
-end
+default['sshd']['package'] =
+  case node['platform']
+  when 'archlinux'
+    'openssh'
+  else
+    'openssh-server'
+  end
 
 # Path to 'sshd' executable
-default['sshd']['sshd_path'] = case node['platform']
-when 'redhat', 'centos'
-  node['platform_version'].to_i >= 7 ? '/sbin/sshd' : '/usr/sbin/sshd'
-else
-  '/usr/sbin/sshd'
-end
+default['sshd']['sshd_path'] =
+  case node['platform']
+  when 'redhat', 'centos'
+    node['platform_version'].to_i >= 7 ? '/sbin/sshd' : '/usr/sbin/sshd'
+  else
+    '/usr/sbin/sshd'
+  end
 
 # Path to 'sshd_config' configuration file
-default['sshd']['config_file'] = case node['platform_family']
-when 'mac_os_x'
-  '/etc/sshd_config'
-else
-  '/etc/ssh/sshd_config'
-end
+default['sshd']['config_file'] =
+  case node['platform_family']
+  when 'mac_os_x'
+    '/etc/sshd_config'
+  else
+    '/etc/ssh/sshd_config'
+  end
 
 # OpenSSH service name
-default['sshd']['service_name'] = case node['platform_family']
-when 'debian'
-  'ssh'
-else
-  'sshd'
-end
+default['sshd']['service_name'] =
+  case node['platform_family']
+  when 'debian'
+    'ssh'
+  else
+    'sshd'
+  end
 
 # Define sshd_config attributes
 default['sshd']['sshd_config'] = {
@@ -68,14 +72,15 @@ default['sshd']['sshd_config'] = {
 }
 
 # Initialize sftp subsystem
-default['sshd']['sshd_config']['Subsystem'] = case node['platform_family']
-when 'debian'
-  'sftp /usr/lib/openssh/sftp-server'
-when 'rhel', 'fedora'
-  'sftp /usr/libexec/openssh/sftp-server'
-when 'mac_os_x'
-  'sftp /usr/libexec/sftp-server'
-end
+default['sshd']['sshd_config']['Subsystem'] =
+  case node['platform_family']
+  when 'debian'
+    'sftp /usr/lib/openssh/sftp-server'
+  when 'rhel', 'fedora'
+    'sftp /usr/libexec/openssh/sftp-server'
+  when 'mac_os_x'
+    'sftp /usr/libexec/sftp-server'
+  end
 
 case node['platform_family']
 when 'debian'
