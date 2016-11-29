@@ -55,7 +55,7 @@ Some configuration options can be specified multiple times. You can reflect this
 using an array
 
 ```ruby
-node['sshd']['sshd_config']['HostKey'] = %w{key1 key2}
+node['sshd']['sshd_config']['HostKey'] = %w(key1 key2)
 ```
 
 
@@ -106,7 +106,7 @@ openssh_server node['sshd']['config_file'] do
   X11Forward  'yes'
 
   # To specify an option multiple times, use an array
-  HostKey     %w{/etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key}
+  HostKey     %w(/etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key)
 
   # For conditional blocks, use a hash
   Match       'User fred' => { 'X11Forwarding' => 'no' },
