@@ -27,7 +27,10 @@ module Sshd
       # Some distros (ubuntu at least) require that the Port be declared before the ListenAddress
       # see issue #8 (https://github.com/chr4-cookbooks/sshd/issues/8)
       #
-      # The 'Port' option can be specified multiple times to listen to multiple ports.
+      # It's necessary to specify the Port option before the ListenAddress. The relevant section from the sshd_config manpage:
+      #   If port is not specified, sshd will listen on the address and all prior Port options specified. The default is to listen on all local
+      #   addresses. Multiple ListenAddress options are permitted. Additionally, any Port options must precede this option for non-port qualified
+      #   addresses.
       Array(config.delete('Port')).each do |port|
         sshd_config << "Port #{port}\n"
       end
