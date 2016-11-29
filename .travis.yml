@@ -4,5 +4,5 @@ rvm:
   - 2.1
 script:
   - bundle exec rubocop
-  - bundle exec foodcritic -f any . -t ~FC015
+  - bundle exec foodcritic -f any .
   - bundle exec rspec
