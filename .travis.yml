@@ -5,3 +5,4 @@ rvm:
 script:
   - bundle exec rubocop
   - bundle exec foodcritic -f any . -t ~FC015
+  - bundle exec rspec

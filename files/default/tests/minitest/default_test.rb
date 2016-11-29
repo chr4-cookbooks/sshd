@@ -29,6 +29,9 @@ describe 'sshd::default' do
 
   it 'should create sshd_config according to specifications' do
     file(node['sshd']['config_file']).must_include('Port 1234')
+    if node['sshd']['sshd_config']['ListenAddress']
+      file(node['sshd']['config_file']).must_match(/Port.+ListenAddress/m)
+    end
   end
 
   it 'should start openssh-server service' do
