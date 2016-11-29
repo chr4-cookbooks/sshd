@@ -18,6 +18,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-include_recipe 'sshd::install'
+# Install package
+package node['sshd']['package']
 
+# Create configuration directory
+directory File.dirname(node['sshd']['config_file']) do
+  owner  'root'
+  group  node['root_group']
+  mode   0o755
+end
+
+# Configure service
 openssh_server node['sshd']['config_file']
