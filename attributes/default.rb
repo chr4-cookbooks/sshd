@@ -72,7 +72,7 @@ default['sshd']['sshd_config'] = {
 }
 
 # sshd_config permissions
-default['sshd']['sshd_config']['mode'] =
+default['sshd']['sshd_config_mode'] =
   case node['platform_family']
   when 'debian', 'mac_os_x'
     '0o644'
