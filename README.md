@@ -24,9 +24,10 @@ node['sshd']['package']      # Package to install openssh-server
 The following settings will be filled in using the defaults of the distribution you're using, unless you overwrite it in your node configuration / definition
 
 ```ruby
-node['sshd']['sshd_path']    # Path to sshd executable
-node['sshd']['config_file']  # Path to sshd_config
-node['sshd']['service_name'] # OpenSSH service name
+node['sshd']['sshd_path']        # Path to sshd executable
+node['sshd']['config_file']      # Path to sshd_config
+node['sshd']['sshd_config_mode'] # File mode of sshd_config
+node['sshd']['service_name']     # OpenSSH service name
 ```
 
 You can specify every configuration option that openssh-server supports in the
