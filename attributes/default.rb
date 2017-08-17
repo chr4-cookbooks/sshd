@@ -71,6 +71,15 @@ default['sshd']['sshd_config'] = {
   'GSSAPIAuthentication' => 'no'
 }
 
+# sshd_config permissions
+default['sshd']['sshd_config_mode'] =
+  case node['platform_family']
+  when 'debian', 'mac_os_x'
+    '0o644'
+  when 'rhel', 'fedora'
+    '0o600'
+  end
+
 # Initialize sftp subsystem
 default['sshd']['sshd_config']['Subsystem'] =
   case node['platform_family']
