@@ -3,6 +3,11 @@ sshd CHANGELOG
 
 This file is used to list changes made in each version of the sshd cookbook.
 
+1.3.1
+-----
+
+- Add support to set `sshd_config` file mode, default to `600` on RHEL
+
 1.3.0
 -----
 
