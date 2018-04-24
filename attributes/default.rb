@@ -21,7 +21,7 @@
 # The package to install
 default['sshd']['package'] =
   case node['platform']
-  when 'archlinux'
+  when 'archlinux', 'suse'
     'openssh'
   else
     'openssh-server'
