@@ -60,9 +60,9 @@ module Sshd
     end
 
     # Merge d (defaults) with new hash (n)
-    def merge_settings(d, n)
-      r = d.to_hash
-      n.each { |k, v| r[k.to_s] = v }
+    def merge_settings(defaults, new_hash)
+      r = defaults.to_hash
+      new_hash.each { |k, v| r[k.to_s] = v }
       r
     end
   end

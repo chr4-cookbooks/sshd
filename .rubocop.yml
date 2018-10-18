@@ -1,3 +1,10 @@
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'test/**/*.rb'
+    - spec/**/*
+
 LineLength:
   Max: 200
 
@@ -5,7 +12,7 @@ HashSyntax:
   EnforcedStyle: ruby19
 
 CaseIndentation:
-  IndentWhenRelativeTo: end
+  EnforcedStyle: end
 
 MethodLength:
   Max: 50
