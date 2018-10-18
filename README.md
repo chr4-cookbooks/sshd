@@ -21,7 +21,7 @@ There's  defaults for most linux distributions.
 node['sshd']['package']      # Package to install openssh-server
 ```
 
-The following settings will be filled in using the defaults of the distribution you're using, unless you overwrite it in your node configuration / definition
+The following settings will be filled in using the defaults of the distribution you're using, unless you overwrite it in your node configuration / resource
 
 ```ruby
 node['sshd']['sshd_path']        # Path to sshd executable
@@ -71,12 +71,12 @@ Runs the install recipe, then configures openssh-server according to the node at
 Just installs openssh-server without configuring it, as well as enabling and starting the daemon.
 
 
-## Definitions
+## Resources
 
-You can also maintain openssh-server using the definition. This is the
+You can also maintain openssh-server using the resource. This is the
 recommended way.
 
-To use the definition, make sure your metadata.rb includes
+To use the resource, make sure your metadata.rb includes
 
 ```ruby
 depends 'sshd'
@@ -84,7 +84,7 @@ depends 'sshd'
 
 ### openssh\_server
 
-To install and configure openssh-server from other recipes, use the following definition:
+To install and configure openssh-server from other recipes, use the following resource:
 
 ```ruby
 openssh_server node['sshd']['config_file']
@@ -94,29 +94,34 @@ or, if you need a configuration which differs from the default
 
 ```ruby
 openssh_server '/etc/sshd_config' do
-  Port 1234
-  X11Forward 'no'
+  sshd_config(
+    Port: 1234,
+    X11Forward: 'no'
+  )
 end
 ```
 
-The definition accepts all configuration options `sshd_config` supports.
+The resource accepts all configuration options `sshd_config` supports.
 
 ```ruby
 openssh_server node['sshd']['config_file'] do
-  Port        1234
-  X11Forward  'yes'
+  sshd_config(
+    Port:        1234
+    X11Forward:  'yes'
 
-  # To specify an option multiple times, use an array
-  HostKey     %w(/etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key)
+    # To specify an option multiple times, use an array
+    HostKey:     %w(/etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key)
 
   # For conditional blocks, use a hash
-  Match       'User fred' => { 'X11Forwarding' => 'no' },
-              'User john' => {
-                'ChrootDirectory' => '/srv',
-                'ForceCommand' => 'internal-sftp',
-                'AllowTcpForwarding' => 'no',
-                'X11Forwarding' => 'no'
-              }
+    Match:       {
+                    'User fred' => { 'X11Forwarding' => 'no' },
+                    'User john' => {
+                      'ChrootDirectory' => '/srv',
+                      'ForceCommand' => 'internal-sftp',
+                      'AllowTcpForwarding' => 'no',
+                      'X11Forwarding' => 'no'
+                    }
+                 }
 end
 ```
 
