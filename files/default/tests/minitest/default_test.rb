@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require File.expand_path('../support/helpers', __FILE__)
+require File.expand_path('support/helpers', __dir__)
 
 describe 'sshd::default' do
   include Helpers::TestHelper
@@ -29,9 +29,7 @@ describe 'sshd::default' do
 
   it 'should create sshd_config according to specifications' do
     file(node['sshd']['config_file']).must_include('Port 1234')
-    if node['sshd']['sshd_config']['ListenAddress']
-      file(node['sshd']['config_file']).must_match(/Port.+ListenAddress/m)
-    end
+    file(node['sshd']['config_file']).must_match(/Port.+ListenAddress/m) if node['sshd']['sshd_config']['ListenAddress']
   end
 
   it 'should start openssh-server service' do
