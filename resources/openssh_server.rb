@@ -21,6 +21,7 @@
 resource_name :openssh_server
 
 property :name, String
+property :template_action, default: :create
 property :cookbook, String, default: 'sshd'
 property :source, String, default: 'sshd_config.erb'
 
@@ -29,9 +30,10 @@ action_class do
 end
 
 action :create do
-  filename = new_resource.name
-  cookbook = new_resource.cookbook
-  source   = new_resource.source
+  filename        = new_resource.name
+  template_action = new_resource.template_action
+  cookbook        = new_resource.cookbook
+  source          = new_resource.source
 
   # generate sshd_config according to attributes
   # use default values, overwrite them with the ones in the definition
@@ -56,7 +58,7 @@ action :create do
     cookbook  cookbook
     source    source
     variables config: sshd_config
-    action    :create
+    action    template_action
 
     # Test sshd_config before actually restarting
     notifies :run, 'execute[check_sshd_config]', :immediately
