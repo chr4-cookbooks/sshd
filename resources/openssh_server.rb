@@ -21,6 +21,7 @@
 resource_name :openssh_server
 
 property :name, String
+property :sshd_config, Hash, default: {}
 property :template_action, default: :create
 property :cookbook, String, default: 'sshd'
 property :source, String, default: 'sshd_config.erb'
@@ -31,13 +32,14 @@ end
 
 action :create do
   filename        = new_resource.name
+  sshd_config     = new_resource.sshd_config
   template_action = new_resource.template_action
   cookbook        = new_resource.cookbook
   source          = new_resource.source
 
   # generate sshd_config according to attributes
-  # use default values, overwrite them with the ones in the definition
-  settings = merge_settings(node['sshd']['sshd_config'], new_resource.params)
+  # use default values, overwrite them with the ones in the resource
+  settings = new_resource.params.merge(node['sshd']['sshd_config'].merge(sshd_config))
   sshd_config = generate_sshd_config(settings)
 
   # Check sshd_config

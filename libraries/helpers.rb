@@ -58,12 +58,5 @@ module Sshd
       # Append conditional blocks
       sshd_config << conditional_blocks
     end
-
-    # Merge d (defaults) with new hash (n)
-    def merge_settings(d, n)
-      r = d.to_hash
-      n.each { |k, v| r[k.to_s] = v }
-      r
-    end
   end
 end
