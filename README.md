@@ -112,7 +112,7 @@ openssh_server node['sshd']['config_file'] do
     # To specify an option multiple times, use an array
     HostKey:     %w(/etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_rsa_key)
 
-  # For conditional blocks, use a hash
+    # For conditional blocks, use a hash
     Match:       {
                     'User fred' => { 'X11Forwarding' => 'no' },
                     'User john' => {
@@ -175,7 +175,7 @@ You fixed a bug, or added a new feature? Yippie!
 
 1. Fork the repository on Github
 2. Create a named feature branch (like `add\_component\_x`)
-3. Write you change
+3. Write your change
 4. Write tests for your change (if applicable)
 5. Run the tests, ensuring they all pass
 6. Submit a Pull Request using Github
