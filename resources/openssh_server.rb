@@ -39,8 +39,7 @@ action :create do
 
   # generate sshd_config according to attributes
   # use default values, overwrite them with the ones in the resource
-  settings = new_resource.params.merge(node['sshd']['sshd_config'].merge(sshd_config))
-  sshd_config = generate_sshd_config(settings)
+  sshd_config = generate_sshd_config(new_resource.params.merge(node['sshd']['sshd_config'].merge(sshd_config)))
 
   # Check sshd_config
   execute 'check_sshd_config' do

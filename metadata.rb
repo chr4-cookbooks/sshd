@@ -8,7 +8,7 @@ version          '1.3.1'
 source_url       'https://github.com/chr4-cookbooks/sshd' if respond_to?(:source_url)
 issues_url       'https://github.com/chr4-cookbooks/sshd/issues' if respond_to?(:issues_url)
 
-%w(ubuntu debian redhat centos).each do |os|
+%w[ubuntu debian redhat centos].each do |os|
   supports os
 end
 

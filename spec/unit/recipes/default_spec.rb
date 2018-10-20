@@ -22,7 +22,7 @@ describe 'sshd::default' do
 
       it 'Port is before ListenAddress when both are defined' do
         chef_run.node.normal['sshd']['sshd_config'] = {
-          'Port' => 2222,
+          'Port' => 22,
           'ListenAddress' => '0.0.0.0'
         }
         chef_run.converge(described_recipe)
@@ -31,7 +31,7 @@ describe 'sshd::default' do
 
       it 'has multiple Port entries when an array is given' do
         chef_run.node.normal['sshd']['sshd_config'] = {
-          'Port' => [2222, 22]
+          'Host' => [2222, 22]
         }
         chef_run.converge(described_recipe)
         expect(chef_run).to render_file('/etc/ssh/sshd_config').with_content("Port 2222\nPort 22\n")
