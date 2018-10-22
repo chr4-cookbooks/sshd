@@ -1,9 +1,13 @@
-sudo: false
-language: ruby
-cache: bundler
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - chefdk
 rvm:
-- 2.3.1
+  - 2.5.0
 script:
-  - bundle exec rubocop
-  - bundle exec foodcritic -f any .
-  - bundle exec rspec
+  - delivery local all
