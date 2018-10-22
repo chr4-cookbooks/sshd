@@ -19,6 +19,7 @@
 #
 
 # Install package
+
 package node['sshd']['package']
 
 # Create configuration directory
