@@ -10,4 +10,4 @@ addons:
 rvm:
   - 2.5.0
 script:
-  - discovery local all
+  - delivery local all
