@@ -59,16 +59,16 @@ default['sshd']['sshd_config'] = {
   'Port' => 22,
   'Protocol' => 2,
   'AcceptEnv' => 'LANG LC_*',
-  'HostKey' => %w[/etc/ssh/ssh_host_rsa_key
+  'HostKey' => %w(/etc/ssh/ssh_host_rsa_key
                   /etc/ssh/ssh_host_ed25519_key
                   /etc/ssh/ssh_host_dsa_key
-                  /etc/ssh/ssh_host_ecdsa_key],
+                  /etc/ssh/ssh_host_ecdsa_key),
   'PasswordAuthentication' => 'yes',
   'ChallengeResponseAuthentication' => 'no',
   'X11Forwarding' => 'yes',
   'UsePAM' => 'yes',
   'SyslogFacility' => 'AUTH',
-  'GSSAPIAuthentication' => 'no'
+  'GSSAPIAuthentication' => 'no',
 }
 
 # sshd_config permissions
