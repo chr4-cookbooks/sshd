@@ -1,3 +1,7 @@
+# sshd Cookbook
+
+[![Cookbook Version](https://img.shields.io/cookbook/v/sshd.svg)](https://supermarket.chef.io/cookbooks/sshd)
+
 # Description
 
 This cookbook maintains the openssh server.
@@ -185,4 +189,4 @@ Contributions of any sort are very welcome!
 # License and Authors
 
 Authors: Chris Aumann <me@chr4.org>
-Contributors: Jeremy Olliver, Andy Thompson, Peter Walz, Kevin Olbrich
+Contributors: Jeremy Olliver, Andy Thompson, Peter Walz, Kevin Olbrich, Johnny Martin
