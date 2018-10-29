@@ -3,6 +3,26 @@ sshd CHANGELOG
 
 This file is used to list changes made in each version of the sshd cookbook.
 
+1.4.0
+-----
+
+- Fixed `rubocop` linting issues
+- Fixed travis file
+- Removed `minitest` and associated files
+- Removed `test-kitchen` gem
+- Added `kitchen-inspec` gem
+- Updated `kitchen-vagrant` gem
+- Created tests using `kitchen-inspec` gem
+    - Tests default attributes and `new_resource` attrs.
+- Created Matcher for custom resource `openssh_server`
+- Added TESTING.md file for supermarket compliance
+- Configured tests to work for `delivery`
+- Added Ubuntu {16,18}.04
+- Added Debian 8 and 9
+- Removed Ubuntu {12.x, 13.x}
+- Removed CentOS 5
+- Removed Debian 5 and 6
+
 1.3.1
 -----
 

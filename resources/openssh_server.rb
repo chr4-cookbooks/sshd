@@ -18,21 +18,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Chef::Recipe
+resource_name :openssh_server
+
+property :name, String
+property :sshd_config, Hash, default: {}
+property :template_action, default: :create
+property :cookbook, String, default: 'sshd'
+property :source, String, default: 'sshd_config.erb'
+
+action_class do
   include Sshd::Helpers
 end
 
-define :openssh_server, action: :create, cookbook: 'sshd', source: 'sshd_config.erb' do
-  # Remove attributes that are not sshd configuration
-  filename        = params.delete(:name)
-  template_action = params.delete(:action)
-  cookbook        = params.delete(:cookbook)
-  source          = params.delete(:source)
+action :create do
+  filename        = new_resource.name
+  sshd_config     = new_resource.sshd_config
+  template_action = new_resource.template_action
+  cookbook        = new_resource.cookbook
+  source          = new_resource.source
 
   # generate sshd_config according to attributes
-  # use default values, overwrite them with the ones in the definition
-  settings = merge_settings(node['sshd']['sshd_config'], params)
-  sshd_config = generate_sshd_config(settings)
+  # use default values, overwrite them with the ones in the resource
+  sshd_config = generate_sshd_config(new_resource.params.merge(node['sshd']['sshd_config'].merge(sshd_config)))
 
   # Check sshd_config
   execute 'check_sshd_config' do

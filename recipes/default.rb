@@ -19,6 +19,7 @@
 #
 
 # Install package
+
 package node['sshd']['package']
 
 # Create configuration directory
@@ -29,4 +30,9 @@ directory File.dirname(node['sshd']['config_file']) do
 end
 
 # Configure service
-openssh_server node['sshd']['config_file']
+openssh_server node['sshd']['config_file'] do
+  name            node['sshd']['config_file']
+  cookbook        'sshd'
+  source          'sshd_config.erb'
+  action          :create
+end
