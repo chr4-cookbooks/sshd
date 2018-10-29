@@ -1,10 +1,34 @@
 sshd CHANGELOG
-=====================
+==============
 
 This file is used to list changes made in each version of the sshd cookbook.
 
-1.4.0
+2.0.0
 -----
+
+- Migrate definition to resource (finally!)
+- Migrate test suite to `inspec`
+- Make everything ready for Chef-13
+
+*NOTE: If you upgrade from version 1.x.x and you were using a wrapper cookbook, make sure you update your configuration accordingly. For more details, have a look at the examples in README.md*:
+
+```ruby
+# Old notation
+openssh_server '/etc/sshd_config' do
+  Port 1234
+  X11Forward 'no'
+end
+
+# New notation
+openssh_server '/etc/sshd_config' do
+  sshd_config(
+    Port: 1234,
+    X11Forward: 'no'
+  )
+end
+```
+
+Detailed CHANGELOG:
 
 - Fixed `rubocop` linting issues
 - Fixed travis file
@@ -22,6 +46,7 @@ This file is used to list changes made in each version of the sshd cookbook.
 - Removed Ubuntu {12.x, 13.x}
 - Removed CentOS 5
 - Removed Debian 5 and 6
+
 
 1.3.1
 -----
