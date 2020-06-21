@@ -3,14 +3,12 @@ sshd CHANGELOG
 
 This file is used to list changes made in each version of the sshd cookbook.
 
-2.0.0
+3.0.0
 -----
 
-- Migrate definition to resource (finally!)
-- Migrate test suite to `inspec`
-- Make everything ready for Chef-13
-
-*NOTE: If you upgrade from version 1.x.x and you were using a wrapper cookbook, make sure you update your configuration accordingly. For more details, have a look at the examples in README.md*:
+- Rename resource from `openssh_server` to `sshd_server`
+- Add platforms: centos-8 debian-10 and ubuntu-20
+- Apply cookstyle linting
 
 ```ruby
 # Old notation
@@ -28,6 +26,32 @@ sshd_server '/etc/sshd_config' do
 end
 ```
 
+
+2.0.0
+-----
+
+- Migrate definition to resource (finally!)
+- Migrate test suite to `inspec`
+- Make everything ready for Chef-13
+
+*NOTE: If you upgrade from version 1.x.x and you were using a wrapper cookbook, make sure you update your configuration accordingly. For more details, have a look at the examples in README.md*:
+
+```ruby
+# Old notation
+open_server '/etc/sshd_config' do
+  Port 1234
+  X11Forward 'no'
+end
+
+# New notation
+openssh_server '/etc/sshd_config' do
+  sshd_config(
+    Port: 1234,
+    X11Forward: 'no'
+  )
+end
+```
+
 Detailed CHANGELOG:
 
 - Fixed `rubocop` linting issues
@@ -38,7 +62,7 @@ Detailed CHANGELOG:
 - Updated `kitchen-vagrant` gem
 - Created tests using `kitchen-inspec` gem
     - Tests default attributes and `new_resource` attrs.
-- Created Matcher for custom resource `sshd_server`
+- Created Matcher for custom resource `openssh_server`
 - Added TESTING.md file for supermarket compliance
 - Configured tests to work for `delivery`
 - Added Ubuntu {16,18}.04
