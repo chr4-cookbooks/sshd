@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: ['centos-7', 'debian-10', 'ubuntu-2004']
-        suite: ['default']
+        os: ['centos-6', 'centos-7', 'centos-8', 'debian-8', 'debian-9', 'debian-10', 'ubuntu-1604', 'ubuntu-1804', 'ubuntu-2004']
+        suite: ['default', 'ssh_config']
       fail-fast: false
     steps:
     - name: Check out code
       uses: actions/checkout@master
     - name: Install Chef
       uses: actionshub/chef-install@master
-    - name: Linting
-      run: cookstyle -D || (echo "Run 'cookstyle -a' to correct cookstyle errors." && exit 1)
-    - name: Test-Kitchen
+    # - name: Linting
+    #   run: cookstyle -D || (echo "Run 'cookstyle -a' to correct cookstyle errors." && exit 1)
+    - name: test-kitchen
       uses: actionshub/test-kitchen@master
       env:
         suite: ${{ matrix.suite }}
