@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: sshd
+# Cookbook:: sshd
 # Recipe:: default
 #
-# Copyright 2012, Chris Aumann
+# Copyright:: 2012, Chris Aumann
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,12 +26,11 @@ package node['sshd']['package']
 directory File.dirname(node['sshd']['config_file']) do
   owner  'root'
   group  node['root_group']
-  mode   0o755
+  mode   '755'
 end
 
 # Configure service
 sshd_server node['sshd']['config_file'] do
-  name            node['sshd']['config_file']
   cookbook        'sshd'
   source          'sshd_config.erb'
   action          :create
