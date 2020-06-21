@@ -14,13 +14,13 @@ This file is used to list changes made in each version of the sshd cookbook.
 
 ```ruby
 # Old notation
-openssh_server '/etc/sshd_config' do
+sshd_server '/etc/sshd_config' do
   Port 1234
   X11Forward 'no'
 end
 
 # New notation
-openssh_server '/etc/sshd_config' do
+sshd_server '/etc/sshd_config' do
   sshd_config(
     Port: 1234,
     X11Forward: 'no'
@@ -38,7 +38,7 @@ Detailed CHANGELOG:
 - Updated `kitchen-vagrant` gem
 - Created tests using `kitchen-inspec` gem
     - Tests default attributes and `new_resource` attrs.
-- Created Matcher for custom resource `openssh_server`
+- Created Matcher for custom resource `sshd_server`
 - Added TESTING.md file for supermarket compliance
 - Configured tests to work for `delivery`
 - Added Ubuntu {16,18}.04
