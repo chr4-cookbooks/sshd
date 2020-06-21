@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: sshd
+# Cookbook:: sshd
 # Attributes:: default
 #
-# Copyright 2012, Chris Aumann
+# Copyright:: 2012, Chris Aumann
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,8 +20,7 @@
 
 # The package to install
 default['sshd']['package'] =
-  case node['platform']
-  when 'archlinux', 'suse'
+  if platform?('arch', 'suse')
     'openssh'
   else
     'openssh-server'
@@ -29,8 +28,7 @@ default['sshd']['package'] =
 
 # Path to 'sshd' executable
 default['sshd']['sshd_path'] =
-  case node['platform']
-  when 'redhat', 'centos'
+  if platform?('redhat', 'centos')
     node['platform_version'].to_i >= 7 ? '/sbin/sshd' : '/usr/sbin/sshd'
   else
     '/usr/sbin/sshd'
@@ -38,8 +36,7 @@ default['sshd']['sshd_path'] =
 
 # Path to 'sshd_config' configuration file
 default['sshd']['config_file'] =
-  case node['platform_family']
-  when 'mac_os_x'
+  if platform_family?('mac_os_x')
     '/etc/sshd_config'
   else
     '/etc/ssh/sshd_config'
@@ -47,8 +44,7 @@ default['sshd']['config_file'] =
 
 # OpenSSH service name
 default['sshd']['service_name'] =
-  case node['platform_family']
-  when 'debian'
+  if platform_family?('debian')
     'ssh'
   else
     'sshd'
