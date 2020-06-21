@@ -28,7 +28,7 @@ describe 'sshd::default' do
     end
 
     it 'executes custom resource' do
-      expect(chef_run).to create_openssh_server('/etc/ssh/sshd_config')
+      expect(chef_run).to create_sshd_server('/etc/ssh/sshd_config')
     end
   end
 end

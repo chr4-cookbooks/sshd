@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sshd
-# Definition:: openssh_server
+# Definition:: sshd_server
 #
 # Copyright 2012, Chris Aumann
 #
@@ -17,8 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-resource_name :openssh_server
 
 property :name, String
 property :sshd_config, Hash, default: {}
