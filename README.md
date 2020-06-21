@@ -91,13 +91,13 @@ depends 'sshd'
 To install and configure openssh-server from other recipes, use the following resource:
 
 ```ruby
-openssh_server node['sshd']['config_file']
+sshd_server node['sshd']['config_file']
 ```
 
 or, if you need a configuration which differs from the default
 
 ```ruby
-openssh_server '/etc/sshd_config' do
+sshd_server '/etc/sshd_config' do
   sshd_config(
     Port: 1234,
     X11Forward: 'no'
@@ -108,7 +108,7 @@ end
 The resource accepts all configuration options `sshd_config` supports.
 
 ```ruby
-openssh_server node['sshd']['config_file'] do
+sshd_server node['sshd']['config_file'] do
   sshd_config(
     Port:        1234
     X11Forward:  'yes'
@@ -132,7 +132,7 @@ end
 In case you need it, you can also use a custom template to use for `sshd_config`
 
 ```ruby
-openssh_server node['sshd']['config_file'] do
+sshd_server node['sshd']['config_file'] do
   cookbook 'mycookbook'
   source   'mytemplate.erb'
 end
