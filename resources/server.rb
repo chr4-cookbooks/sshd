@@ -41,12 +41,21 @@ action :create do
   # Check sshd_config
   execute 'check_sshd_config' do
     command "#{node['sshd']['sshd_path']} -t -f #{filename}"
+    only_if { node['sshd']['sshd_config']['HostKey'].map { |f| ::File.exist?(f) }.include?(true) }
     action :nothing
   end
 
   service node['sshd']['service_name'] do
     supports status: true, restart: true, reload: true
     action :nothing
+  end
+
+  directory '/run/sshd' do
+    owner 'root'
+    group 'root'
+    mode '0755'
+    action :create
+    only_if { platform?('debian') || platform?('ubuntu') }
   end
 
   template filename do
