@@ -3,6 +3,13 @@ sshd CHANGELOG
 
 This file is used to list changes made in each version of the sshd cookbook.
 
+3.0.0
+-----
+
+- Rename resource from `openssh_server` to `sshd_server`
+- Add platforms: centos-8 debian-10 and ubuntu-20
+- Apply cookstyle linting
+
 2.0.0
 -----
 
