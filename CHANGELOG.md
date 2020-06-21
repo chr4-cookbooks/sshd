@@ -10,6 +10,23 @@ This file is used to list changes made in each version of the sshd cookbook.
 - Add platforms: centos-8 debian-10 and ubuntu-20
 - Apply cookstyle linting
 
+```ruby
+# Old notation
+sshd_server '/etc/sshd_config' do
+  Port 1234
+  X11Forward 'no'
+end
+
+# New notation
+sshd_server '/etc/sshd_config' do
+  sshd_config(
+    Port: 1234,
+    X11Forward: 'no'
+  )
+end
+```
+
+
 2.0.0
 -----
 
@@ -21,13 +38,13 @@ This file is used to list changes made in each version of the sshd cookbook.
 
 ```ruby
 # Old notation
-sshd_server '/etc/sshd_config' do
+open_server '/etc/sshd_config' do
   Port 1234
   X11Forward 'no'
 end
 
 # New notation
-sshd_server '/etc/sshd_config' do
+openssh_server '/etc/sshd_config' do
   sshd_config(
     Port: 1234,
     X11Forward: 'no'
@@ -45,7 +62,7 @@ Detailed CHANGELOG:
 - Updated `kitchen-vagrant` gem
 - Created tests using `kitchen-inspec` gem
     - Tests default attributes and `new_resource` attrs.
-- Created Matcher for custom resource `sshd_server`
+- Created Matcher for custom resource `openssh_server`
 - Added TESTING.md file for supermarket compliance
 - Configured tests to work for `delivery`
 - Added Ubuntu {16,18}.04
