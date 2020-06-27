@@ -41,7 +41,7 @@ action :create do
   # Check sshd_config
   execute 'check_sshd_config' do
     command "#{node['sshd']['sshd_path']} -t -f #{filename}"
-    only_if { node['sshd']['sshd_config']['HostKey'].map{|f| ::File.exists?(f)}.include?(true) }
+    only_if { node['sshd']['sshd_config']['HostKey'].map { |f| ::File.exist?(f) }.include?(true) }
     action :nothing
   end
 
