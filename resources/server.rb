@@ -50,6 +50,14 @@ action :create do
     action :nothing
   end
 
+  directory '/run/sshd' do
+    owner 'root'
+    group 'root'
+    mode '0755'
+    action :create
+    only_if { platform?('ubuntu') }
+  end
+
   template filename do
     owner     'root'
     group     node['root_group']
