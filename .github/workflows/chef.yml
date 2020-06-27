@@ -19,8 +19,8 @@ jobs:
       uses: actions/checkout@master
     - name: Install Chef
       uses: actionshub/chef-install@master
-    # - name: Linting
-    #   run: cookstyle -D || (echo "Run 'cookstyle -a' to correct cookstyle errors." && exit 1)
+    - name: Linting
+      run: cookstyle -f simple || (echo "Run 'cookstyle -a' to correct cookstyle errors." && exit 1)
     - name: test-kitchen
       uses: actionshub/test-kitchen@master
       with:
