@@ -189,4 +189,4 @@ Contributions of any sort are very welcome!
 # License and Authors
 
 Authors: Chris Aumann <me@chr4.org>
-Contributors: Jeremy Olliver, Andy Thompson, Peter Walz, Kevin Olbrich, Johnny Martin, Renato Covarrubias
+Contributors: Jeremy Olliver, Andy Thompson, Peter Walz, Kevin Olbrich, Johnny Martin, Renato Covarrubias, Jose A. Hernandez
