@@ -4,8 +4,10 @@ sshd CHANGELOG
 This file is used to list changes made in each version of the sshd cookbook.
 
 3.1.0
+-----
 
 - Add Arch and Amazon linux platforms. Replace foodcritic in Gemfile in favor of cookstyle - [@jhboricua](https://github.com/jhboricua)
+
 
 3.0.0
 -----
