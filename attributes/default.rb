@@ -72,22 +72,32 @@ default['sshd']['sshd_config_mode'] =
   case node['platform_family']
   when 'debian', 'mac_os_x'
     '0o644'
-  when 'rhel', 'fedora'
+  when 'amazon', 'arch', 'fedora', 'rhel'
     '0o600'
   end
 
 # Initialize sftp subsystem
 default['sshd']['sshd_config']['Subsystem'] =
   case node['platform_family']
+  when 'arch'
+    'sftp /usr/lib/ssh/sftp-server'
   when 'debian'
     'sftp /usr/lib/openssh/sftp-server'
-  when 'rhel', 'fedora'
+  when 'amazon', 'fedora', 'rhel'
     'sftp /usr/libexec/openssh/sftp-server'
   when 'mac_os_x'
     'sftp /usr/libexec/sftp-server'
   end
 
 case node['platform_family']
+when 'amazon'
+  default['sshd']['sshd_config']['SyslogFacility'] = 'AUTHPRIV'
+  default['sshd']['sshd_config']['AcceptEnv'] = 'LANG LANGUAGE LC_* XMODIFIERS'
+
+when 'arch'
+  default['sshd']['sshd_config']['SyslogFacility'] = 'AUTH'
+  default['sshd']['sshd_config']['X11Forwarding'] = 'no'
+
 when 'debian'
   # On debian-like systems, pam takes care of the motd
   default['sshd']['sshd_config']['PrintMotd'] = 'no'
