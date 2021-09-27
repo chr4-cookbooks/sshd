@@ -55,7 +55,7 @@ action :create do
     group 'root'
     mode '0755'
     action :create
-    only_if { platform?('debian') || platform?('ubuntu') }
+    only_if { platform?('debian', 'ubuntu') }
   end
 
   template filename do

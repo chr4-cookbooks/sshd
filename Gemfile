@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
 
 group :lint do
-  gem 'foodcritic'
-  gem 'rubocop'
+  gem 'cookstyle'
 end
 
 group :unit do
