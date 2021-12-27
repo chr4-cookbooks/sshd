@@ -11,4 +11,4 @@ issues_url       'https://github.com/chr4-cookbooks/sshd/issues'
   supports os
 end
 
-chef_version '>= 15.0'
+chef_version '>= 15.3'
