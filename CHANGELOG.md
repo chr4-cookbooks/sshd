@@ -3,6 +3,12 @@ sshd CHANGELOG
 
 This file is used to list changes made in each version of the sshd cookbook.
 
+3.1.1
+-----
+
+- Enable `unify_mode`, for Chef-18 support
+
+
 3.1.0
 -----
 
